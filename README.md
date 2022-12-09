@@ -29,4 +29,5 @@ Easily edit your .htaccess file.
 
 ### Versions ###
 
-* 1.0 - 28/04/2018 : First stable version
+* 1.1 - 09/12/2022 : FJQuery free
+* 1.0 - 01/04/2018 : First stable version

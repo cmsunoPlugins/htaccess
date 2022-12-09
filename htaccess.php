@@ -1,16 +1,13 @@
 <?php
 session_start(); 
-if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])!='xmlhttprequest') {sleep(2);exit;} // ajax request
 if(!isset($_POST['unox']) || $_POST['unox']!=$_SESSION['unox']) {sleep(2);exit;} // appel depuis uno.php
 ?>
 <?php
 include('../../config.php');
 include('lang/lang.php');
 // ********************* actions *************************************************************************
-if (isset($_POST['action']))
-	{
-	switch ($_POST['action'])
-		{
+if(isset($_POST['action'])) {
+	switch($_POST['action']) {
 		// ********************************************************************************************
 		case 'plugin': ?>
 		<style>pre{color:#000;background-color:#cddc39;margin:0 20px 10px;}</style>
@@ -20,8 +17,8 @@ if (isset($_POST['action']))
 			<textarea id="htcontent" rows="20" style="width:100%"></textarea>
 			<div class="bouton" style="margin:5px 0;" onClick="f_save_htaccess(document.getElementById('htcontent').value);" title="<?php echo T_("Save settings");?>"><?php echo T_("Save");?></div>
 			<h3><?php echo T_("Help");?></h3>
-			<p><?php echo T_("Save empty for default .htaccess");?></p>
-			<p><?php echo T_("Redirection");?>&nbsp;http => https :
+			<p>- <?php echo T_("Save empty for default .htaccess");?></p>
+			<p>- <?php echo T_("Redirection");?>&nbsp;http => https :
 				<pre><?php echo "# Put this after : RewriteEngine On"."\r\n"."RewriteCond %{HTTPS} off"."\r\n"."RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]"; ?></pre>
 			</p>
 			<div class="clear"></div>
@@ -34,8 +31,7 @@ if (isset($_POST['action']))
 		break;
 		// ********************************************************************************************
 		case 'save':
-		if(isset($_POST['cont']))
-			{
+		if(isset($_POST['cont'])) {
 			$cont = $_POST['cont'];
 			if(empty($cont)) $cont = '# CMSUno - HTACCESS auto'."\r\n".
 			'Options -Indexes'."\r\n".
@@ -56,11 +52,11 @@ if (isset($_POST['action']))
 			'</IfModule>'."\r\n";
 			if(file_put_contents('../../../.htaccess', $cont)) echo T_('Backup performed');
 			else echo '!'.T_('Impossible backup');
-			}
+		}
 		break;
 		// ********************************************************************************************
-		}
+	}
 	clearstatcache();
 	exit;
-	}
+}
 ?>
